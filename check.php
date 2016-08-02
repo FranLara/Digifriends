@@ -8,10 +8,12 @@
 	if((!empty($uid))&&(!empty($number))){
 		$search = new Search($uid, $number);
 		
+		$numSearchs = $search->countSearchs();
+		
 		if(!empty($digifriend)){
-			$areDigifriends = $search->isDigifriend($digifriend);
-		} else {
-			$numSearchs = $search->countSearchs();
+			if($numSearchs > 0){
+				$areDigifriends = $search->isDigifriend($digifriend);
+			}
 		}
 	}
 	
@@ -36,16 +38,23 @@
 	    	<?php echo $numSearchs ?> times.
 	    </p>
 	<?php } else { ?>
-		<?php if($areDigifriends) {?>
+		<?php if($numSearchs == 0) { ?>
 			<p>
-		    	Yes the number <?php echo $number?> and <?php echo $digifriend?> 
-		    	are digifriends.
-	    	</p>
-		<?php } else  {?>
-			<p>
-	    		No the number <?php echo $number?> and <?php echo $digifriend?> 
-		    	are not digifriends.
-	    	</p>
+		    	You have never searched the number <?php echo $number?> in the last month,
+		    	so we can't tell you if they are digifriends.
+		    </p>
+		<?php } else {?>
+			<?php if($areDigifriends) {?>
+				<p>
+			    	Yes, the numbers <?php echo $number?> and <?php echo $digifriend?> 
+			    	are digifriends.
+		    	</p>
+			<?php } else  {?>
+				<p>
+		    		No, the numbers <?php echo $number?> and <?php echo $digifriend?> 
+			    	are not digifriends.
+		    	</p>
+			<?php } ?>
 		<?php } ?>
 	<?php } ?>
     

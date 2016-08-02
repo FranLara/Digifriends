@@ -1,5 +1,6 @@
 <?php
 require_once "./database/mysql_connection.php";
+require_once "./calculator/calculator.php";
 
 define ("QUERY_INSERT_SEARCH", "INSERT INTO user_number_request (uid, number, date_request) VALUES (");
 define ("QUERY_COUNT_SEARCHS", "SELECT COUNT(number) number FROM user_number_request WHERE uid = ");
@@ -39,7 +40,10 @@ class Search {
 	public function isDigifriend($digifriend){
 		$isDigifriend = false;
 		
+		$calculator = new Calculator();
+		$digifriends = $calculator->getDigifriends($this->number);
 		
+		$isDigifriend = in_array($digifriend, $digifriends);
 		
 		return $isDigifriend;
 	}
