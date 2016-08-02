@@ -8,7 +8,7 @@ define('NAME_DB', 'digifriends_challenge');
 class MySQL_Connection {
 	
 	
-	public function selectQuery($query){
+	public function executeQuery($query){
 		$result = null;
 		$database_connection = $this->getDatabaseConnection();
 		
