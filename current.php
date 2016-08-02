@@ -1,6 +1,7 @@
 <?php 
 	require_once "./calculator/calculator.php";
 	require_once "./history/search.php";
+	require_once 'cron.php';
 	
 	$uid = $_GET["uid"];
 	$number = $_POST["searchNumber"];
