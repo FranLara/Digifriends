@@ -13,6 +13,7 @@ class Calculator {
 		
 		if(empty($result)){
 			$result = $this->calculateDigifriends($number);
+			$this->saveCalculatedDigifriends($number, $result);
 		}
 		
 		return $result;
@@ -34,8 +35,7 @@ class Calculator {
 	}
 	
 	private function calculateDigifriends($number){
-		$result = null;
-		
+		$result = array();		
 		$lastValue = 0;
 		
 		for ($i = 1; $i<=$number; $i++){
@@ -43,28 +43,44 @@ class Calculator {
 			switch ($i){
 				case (1):
 					$lastValue += $number*2;
-					echo $lastValue . " ";
+					$result[] = $lastValue;
 					break;
 					
 				case (2):
 					$lastValue = $lastValue/$i;
-					echo $lastValue . " ";
+					
+					if(!in_array($lastValue, $result)){
+						$result[] = $lastValue;
+					}
+
 					break;
 				
 				case (($i+1)%4 == 0):
 					$multiple = ($i+1)/4;
 					$lastValue += (8*$multiple);
-					echo $lastValue . " ";
+					
+					if(!in_array($lastValue, $result)){
+						$result[] = $lastValue;
+					}
+					
 					break;
 				
 				case (($i%4 == 0) || (($i+2)%4 == 0)):
 					$lastValue -= 6;
-					echo $lastValue . " ";
+					
+					if(!in_array($lastValue, $result)){
+						$result[] = $lastValue;
+					}
+					
 					break;
 					
 				case (($i-1)%4 == 0):
 					$lastValue -= 4;
-					echo $lastValue . " ";
+					
+					if(!in_array($lastValue, $result)){
+						$result[] = $lastValue;
+					}
+					
 					break;
 				
 			}
@@ -74,4 +90,22 @@ class Calculator {
 		return $result;
 	}
 	
+	private function saveCalculatedDigifriends($number, $digifriends){
+		
+		if(!empty($digifriends)){
+			$query = QUERY_INSERT_NUMBER . $number . ", \"";
+		
+			foreach ($digifriends as $digifriend){
+				$query .= $digifriend . ",";
+			}
+			
+			$query = substr($query, 0, -1);
+			$query .= "\")";
+			
+			$connection = new MySQL_Connection();
+			$saveDigifriends = $connection->executeQuery($query);
+			
+		}
+		
+	}
 }
