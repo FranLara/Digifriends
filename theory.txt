@@ -1,0 +1,24 @@
+Task 0.- 
+
+The rules hidden in the sequence are the following:
+
+i => 1 --> Number X * 2
+i => 2 --> (Result of i = 1) / 2
+i => (i+1) % 4 = 0 --> (Result of i-1) + 8 * ((i+1) / 4)
+i => $i % 4 = 0 or ($i+2) % 4 = 0 --> (Result of i-1) - 6
+i => ($i-1) % 4 = 0 --> (Result of i-1) - 4
+
+So, the number for i=14 for Number X = 14 the result is 14.
+
+
+Task 4.-
+
+Theoretically my creation script, creates already an index key on the user_id that avoids a high performace in the database.
+So, there wasn't any problem respect to that. Also the "count" function runs only over the "number" column, that makes the search
+faster.
+
+Task 5.-
+
+The unique problem would be the limit in the type of the field in the database. And maybe the calculation time, but
+it would have to be with a really huge number, bigger than "int" type.
+
