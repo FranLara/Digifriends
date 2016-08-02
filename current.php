@@ -1,6 +1,6 @@
 <?php 
 	require_once "./calculator/calculator.php";
-	require_once "./history/search.php";
+	require_once "./search/search.php";
 	require_once 'cron.php';
 	
 	$uid = $_GET["uid"];
@@ -19,6 +19,7 @@
     	
 	    	<?php 
 	    		$search = new Search($uid, $number);
+	    		$search->saveSearch();
 	    	
 	    		$calculator = new Calculator();
 	    		$digifriends = $calculator->getDigifriends($number);
